@@ -22,7 +22,7 @@ function App() {
   const modal = useSelector((state) => state.modal);
 
   return (
-    <BrowserRouter basename="/github-api-redux-viewer">
+    <BrowserRouter>
       <GlobalStyle />
       <Header />
       <SContent>
