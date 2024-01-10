@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -17,7 +17,7 @@ const SContent = styled.div`
   margin: 32px 0;
   display: flex;
   border-radius: 6px;
-  border: 1px solid ${colors.border}};
+  border: 1px solid ${colors.border};
 `;
 
 const SLeft = styled.div`
@@ -42,13 +42,15 @@ const SField = styled.p`
 
 export const ProfilePage = () => {
   const dispatch = useDispatch();
+  const [isFetched, setIsFetched] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchUser();
-      console.log(data);
-        dispatch(upsertProfile(
-          {
+    if (isFetched) {
+      const fetchData = async () => {
+        const data = await fetchUser();
+        console.log(data);
+        dispatch(
+          upsertProfile({
             name: data.name,
             url: data.html_url,
             profileUrl: data.avatar_url,
@@ -56,11 +58,13 @@ export const ProfilePage = () => {
             followers: data.followers,
             public_repos: data.public_repos,
             private_repos: data.total_private_repos,
-          }
-        ));
+          })
+        );
+      };
+      fetchData();
     }
-    fetchData();
-  },[]);
+    setIsFetched(true);
+  }, [isFetched]);
 
   const user = useSelector((state) => state.user);
 
@@ -88,7 +92,9 @@ export const ProfilePage = () => {
           </SGroup>
           <SGroup>
             <SLabel>アカウントURL</SLabel>
-            <SField>{user.url}</SField>
+            <SField>
+              <a href={user.url}>{user.url}</a>
+            </SField>
           </SGroup>
           <SGroup>
             <SLabel>フォロー数</SLabel>

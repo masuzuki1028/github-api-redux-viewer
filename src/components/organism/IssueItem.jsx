@@ -31,7 +31,9 @@ export const IssueItem = ({ item, onClickCheckBox, checked, onRowClick }) => {
           onChange={onClickCheckBox}
         ></input>
       </td>
-      <td onClick={onRowClick}>{item.title}</td>
+      <td className="outline">
+        <a href={item.html_url}>{item.title}</a>
+      </td>
       <td onClick={onRowClick}>{status}</td>
       <td onClick={onRowClick}>{item.user}</td>
       <td onClick={onRowClick}>{created_at}</td>
