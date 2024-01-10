@@ -9,6 +9,8 @@ import { PullRequestPage } from "./pages/PullRequest";
 import { ProfilePage } from "./pages/Profile";
 import { Header } from "./components/organism/Header";
 import styled from "styled-components";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SContent = styled.div`
   max-width: 896px;
@@ -31,9 +33,8 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </SContent>
-      <Modal isOpen={modal.show} >
-        {modal.content}
-      </Modal>
+      <Modal isOpen={modal.show}>{modal.content}</Modal>
+      <ToastContainer />
     </BrowserRouter>
   );
 }

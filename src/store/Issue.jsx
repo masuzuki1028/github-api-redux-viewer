@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-};
+const initialState = {};
 
 const IssueSlice = createSlice({
   name: "Issue",
@@ -12,15 +11,24 @@ const IssueSlice = createSlice({
     },
     upsertIssue: (state, action) => {
       const id = action.payload.id;
-      const { title, description, status, created_at,updated_at, user } = action.payload
+      const {
+        title,
+        html_url,
+        description,
+        status,
+        created_at,
+        updated_at,
+        user,
+      } = action.payload;
       state[id] = {
         id,
+        html_url,
         title,
         description,
         status,
         created_at,
         updated_at,
-        user
+        user,
       };
     },
   },

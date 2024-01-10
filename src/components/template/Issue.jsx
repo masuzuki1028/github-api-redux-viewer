@@ -11,7 +11,6 @@ import { colors } from "../../styles/constants";
 import { closeIssue, fetchIssues } from "../../apis/issues";
 import { useEffect } from "react";
 
-
 const SContainer = styled.div`
   padding: 16px;
   margin-top: 16px;
@@ -66,34 +65,30 @@ const STable = styled.table`
 
 export const IssueTemplete = () => {
   const dispatch = useDispatch();
+  const [isFetched, setIsFetched] = useState(false);
 
   useEffect(() => {
-    const data1 = fetchIssues();
-    data1.then((data) => {
-      data.forEach((issue) => {
-        console.log(`Number: ${issue.number}`);
-        console.log(`Title: ${issue.title}`);
-        console.log(`Body: ${issue.body}`);
-        console.log(`State: ${issue.state}`);
-        console.log(`Created at: ${issue.created_at}`);
-        console.log(`Updated at: ${issue.updated_at}`);
-        console.log(`User login: ${issue.user.login}`);
-        console.log('---');
-        dispatch(upsertIssue(
-          {
-            id: issue.number,
-            title: issue.title,
-            description: issue.body,
-            status: issue.state === "open" ? 0 : 1,
-            created_at: issue.created_at,
-            updated_at: issue.updated_at,
-            user: issue.user.login,
-          }
-        ));
-    });
-    });
-  },[]);
-  
+    if (isFetched) {
+      fetchIssues().then((data) => {
+        data.forEach((issue) => {
+          dispatch(
+            upsertIssue({
+              id: issue.number,
+              html_url: issue.html_url,
+              title: issue.title,
+              description: issue.body,
+              status: issue.state === "open" ? 0 : 1,
+              created_at: issue.created_at,
+              updated_at: issue.updated_at,
+              user: issue.user.login,
+            })
+          );
+        });
+      });
+    }
+    setIsFetched(true);
+  }, [isFetched]);
+
   const data = useSelector((state) => state.issues);
   const [selectedIds, setSelectedIds] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
