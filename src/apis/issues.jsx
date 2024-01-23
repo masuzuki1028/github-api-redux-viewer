@@ -38,7 +38,8 @@ export const fetchIssues = async () => {
       },
     }
   );
-  return response.data;
+  const issues = response.data.filter(issue => !issue.pull_request);
+  return issues;
 };
 
 export const closeIssue = async (id) => {

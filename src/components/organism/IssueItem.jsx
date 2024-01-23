@@ -14,7 +14,7 @@ const SContainer = styled.tr`
 
 const Status = {
   0: "open",
-  1: "close",
+  1: "closed",
 };
 
 export const IssueItem = ({ item, onClickCheckBox, checked, onRowClick }) => {
