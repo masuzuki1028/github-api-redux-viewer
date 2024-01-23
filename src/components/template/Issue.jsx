@@ -69,7 +69,8 @@ export const IssueTemplete = () => {
 
   useEffect(() => {
     if (isFetched) {
-      fetchIssues().then((data) => {
+      const fetchIssuesData = async () => {
+        const data = await fetchIssues();
         data.forEach((issue) => {
           dispatch(
             upsertIssue({
@@ -78,13 +79,14 @@ export const IssueTemplete = () => {
               title: issue.title,
               description: issue.body,
               status: issue.state === "open" ? 0 : 1,
-              created_at: issue.created_at,
-              updated_at: issue.updated_at,
+              createdAt: issue.created_at,
+              updatedAt: issue.updated_at,
               user: issue.user.login,
             })
           );
         });
-      });
+      };
+      fetchIssuesData();
     }
     setIsFetched(true);
   }, [isFetched]);

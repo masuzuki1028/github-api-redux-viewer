@@ -6,7 +6,7 @@ const profileSlice = createSlice({
   name: "profile",
   initialState,
   reducers: {
-    upsertProfile: (state, action) => {
+    updateProfile: (state, action) => {
       const {
         name,
         url,
@@ -27,5 +27,5 @@ const profileSlice = createSlice({
   },
 });
 
-export const { upsertProfile } = profileSlice.actions;
+export const { updateProfile } = profileSlice.actions;
 export default profileSlice.reducer;

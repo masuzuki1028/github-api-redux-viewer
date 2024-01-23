@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { fetchUser } from "../apis/users";
-import { upsertProfile } from "../store/Profile";
+import { updateProfile } from "../store/Profile";
 import { colors } from "../styles/constants";
 
 const SContainer = styled.div`
@@ -42,29 +42,24 @@ const SField = styled.p`
 
 export const ProfilePage = () => {
   const dispatch = useDispatch();
-  const [isFetched, setIsFetched] = useState(false);
 
   useEffect(() => {
-    if (isFetched) {
-      const fetchData = async () => {
-        const data = await fetchUser();
-        console.log(data);
-        dispatch(
-          upsertProfile({
-            name: data.name,
-            url: data.html_url,
-            profileUrl: data.avatar_url,
-            following: data.following,
-            followers: data.followers,
-            public_repos: data.public_repos,
-            private_repos: data.total_private_repos,
-          })
-        );
-      };
-      fetchData();
-    }
-    setIsFetched(true);
-  }, [isFetched]);
+    const fetchData = async () => {
+      const data = await fetchUser();
+      dispatch(
+        updateProfile({
+          name: data.name,
+          url: data.html_url,
+          profileUrl: data.avatar_url,
+          following: data.following,
+          followers: data.followers,
+          public_repos: data.public_repos,
+          private_repos: data.total_private_repos,
+        })
+      );
+    };
+    fetchData();
+  }, []);
 
   const user = useSelector((state) => state.user);
 

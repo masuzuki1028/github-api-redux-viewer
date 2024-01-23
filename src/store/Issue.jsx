@@ -16,8 +16,8 @@ const IssueSlice = createSlice({
         html_url,
         description,
         status,
-        created_at,
-        updated_at,
+        createdAt,
+        updatedAt,
         user,
       } = action.payload;
       state[id] = {
@@ -26,8 +26,8 @@ const IssueSlice = createSlice({
         title,
         description,
         status,
-        created_at,
-        updated_at,
+        createdAt,
+        updatedAt,
         user,
       };
     },

@@ -4,29 +4,11 @@ import { toast } from "react-toastify";
 const URI = "/repos/masuzuki1028/github-api-redux-viewer/";
 
 const successMSG = (message) => {
-  toast.success(message, {
-    position: "top-center",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "colored",
-  });
+  toast.success(message);
 };
 
 const errorMSG = (message) => {
-  toast.error(message, {
-    position: "top-center",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "colored",
-  });
+  toast.error(message);
 };
 
 export const fetchIssues = async () => {
@@ -38,7 +20,7 @@ export const fetchIssues = async () => {
       },
     }
   );
-  const issues = response.data.filter(issue => !issue.pull_request);
+  const issues = response.data.filter((issue) => !issue.pull_request);
   return issues;
 };
 
