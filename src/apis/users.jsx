@@ -1,10 +1,8 @@
-import axios from "axios";
+import { instance } from "./api";
 
 export const fetchUser = async () => {
-  const response = await axios.get(`${process.env.REACT_APP_PUBLIC_URL}/user`, {
-    headers: {
-      Authorization: `Bearer ${process.env.REACT_APP_GITHUB_API_TOKEN}`,
-    },
-  });
+  const response = await instance.get(
+    `${process.env.REACT_APP_PUBLIC_URL}/user`
+  );
   return response.data;
 };
